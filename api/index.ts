@@ -12,12 +12,27 @@ app.use(express.json());
 app.get("/", (req, res) => res.send("Express on Vercel"));
   
 // Allow CORS from your frontend's origin
-const allowedOrigins = ['https://tersano-1yop3frgw-amirmsvis-projects.vercel.app/*','https://tersano.vercel.app/*'];
+const allowedOrigins = ['https://tersano-1yop3frgw-amirmsvis-projects.vercel.app/','https://tersano.vercel.app/'];
 
 app.use(cors({
-  origin: allowedOrigins, // Allow only these origins
-  methods: ['GET', 'POST', 'DELETE'], // Define allowed methods
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) { // Allow listed origins or server-side requests
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Define allowed HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Define allowed headers
+  credentials: true, // Allow sending cookies/authorization headers
+}));
+
+// Middleware to handle preflight requests
+app.options('*', cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 }));
 
 // JWT secret key
