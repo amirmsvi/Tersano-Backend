@@ -9,6 +9,7 @@ app.use(express.json());
 // Root endpoint to display server status
 app.get('/', (req, res) => {
     res.json({ message: 'Server is running successfully!' });
+    res.send("Express on Vercel");
   });
   
 
