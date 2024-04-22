@@ -2,6 +2,8 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid'); // For generating unique IDs
+const cors = require('cors');
+
 
 const app = express();
 app.use(express.json());
@@ -9,7 +11,14 @@ app.use(express.json());
 // Root endpoint to display server status
 app.get("/", (req, res) => res.send("Express on Vercel"));
   
+// Allow CORS from your frontend's origin
+const allowedOrigins = ['https://tersano-1yop3frgw-amirmsvis-projects.vercel.app'];
 
+app.use(cors({
+  origin: allowedOrigins, // Allow only these origins
+  methods: ['GET', 'POST', 'DELETE'], // Define allowed methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Define allowed headers
+}));
 
 // JWT secret key
 const JWT_SECRET = 'your_secret_key';
