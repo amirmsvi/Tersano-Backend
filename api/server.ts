@@ -6,6 +6,13 @@ const { v4: uuidv4 } = require('uuid'); // For generating unique IDs
 const app = express();
 app.use(express.json());
 
+// Root endpoint to display server status
+app.get('/', (req, res) => {
+    res.json({ message: 'Server is running successfully!' });
+  });
+  
+
+
 // JWT secret key
 const JWT_SECRET = 'your_secret_key';
 
