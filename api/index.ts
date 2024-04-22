@@ -12,7 +12,7 @@ app.use(express.json());
 app.get("/", (req, res) => res.send("Express on Vercel"));
   
 // Allow CORS from your frontend's origin
-const allowedOrigins = ['https://tersano-1yop3frgw-amirmsvis-projects.vercel.app','https://tersano.vercel.app/'];
+const allowedOrigins = ['https://tersano-1yop3frgw-amirmsvis-projects.vercel.app/*','https://tersano.vercel.app/*'];
 
 app.use(cors({
   origin: allowedOrigins, // Allow only these origins
