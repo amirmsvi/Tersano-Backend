@@ -12,7 +12,7 @@ app.use(express.json());
 app.get("/", (req, res) => res.send("Express on Vercel"));
   
 // Allow CORS from your frontend's origin
-const allowedOrigins = ['https://tersano-1yop3frgw-amirmsvis-projects.vercel.app/','https://tersano.vercel.app/', 'https://tersano.vercel.app/login', 'https://tersano.vercel.app/signup', 'https://tersano.vercel.app/products', 'https://tersano.vercel.app/protected', 'http://localhost:3000'];
+const allowedOrigins = ['https://tersano-1yop3frgw-amirmsvis-projects.vercel.app','https://tersano.vercel.app', 'https://tersano.vercel.app/login', 'https://tersano.vercel.app/signup', 'https://tersano.vercel.app/products', 'https://tersano.vercel.app/protected', 'http://localhost:3000'];
 
 // Apply CORS middleware
 app.use(cors({
