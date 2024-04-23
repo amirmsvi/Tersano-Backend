@@ -12,21 +12,28 @@ app.use(express.json());
 app.get("/", (req, res) => res.send("Express on Vercel"));
   
 // Allow CORS from your frontend's origin
-const allowedOrigins = ['https://tersano-1yop3frgw-amirmsvis-projects.vercel.app/','https://tersano.vercel.app/', 'https://tersano.vercel.app/login', 'https://tersano.vercel.app/signup', 'https://tersano.vercel.app/products', 'https://tersano.vercel.app/protected'];
+const allowedOrigins = ['https://tersano-1yop3frgw-amirmsvis-projects.vercel.app/','https://tersano.vercel.app/', 'https://tersano.vercel.app/login', 'https://tersano.vercel.app/signup', 'https://tersano.vercel.app/products', 'https://tersano.vercel.app/protected', 'http://localhost:3000'];
 
+// Apply CORS middleware
 app.use(cors({
   origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) { // Allow listed origins or server-side requests
-      callback(null, true);
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow if the origin is in the allowed list
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Define allowed HTTP methods
-  allowedHeaders: ['Content-Type', 'Authorization'], // Define allowed headers
-  credentials: true, // Allow sending cookies/authorization headers
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allowed HTTP headers
+  credentials: true, // Allow sending cookies and authorization headers
 }));
 
+app.options('*', cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
 
 // JWT secret key
 const JWT_SECRET = 'your_secret_key';
