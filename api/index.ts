@@ -12,7 +12,7 @@ app.use(express.json());
 app.get("/", (req, res) => res.send("Express on Vercel"));
   
 // Allow CORS from your frontend's origin
-const allowedOrigins = ['https://tersano-1yop3frgw-amirmsvis-projects.vercel.app/','https://tersano.vercel.app/'];
+const allowedOrigins = ['https://tersano-1yop3frgw-amirmsvis-projects.vercel.app/','https://tersano.vercel.app/', 'https://tersano.vercel.app/login', 'https://tersano.vercel.app/signup', 'https://tersano.vercel.app/products', 'https://tersano.vercel.app/protected'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -27,13 +27,6 @@ app.use(cors({
   credentials: true, // Allow sending cookies/authorization headers
 }));
 
-// Middleware to handle preflight requests
-app.options('*', cors({
-  origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
-}));
 
 // JWT secret key
 const JWT_SECRET = 'your_secret_key';
